@@ -1,24 +1,16 @@
 = ltc
 
 mp4 → HLS形式の動画変換をするコマンドラインツールです。 +
-現状、ffmpegがインストールされていてmp4 → HLS形式の変換ができるPCでないと動かなです +
-
-= インストール
-
-インストールは`go get`コマンドを使用してください +
-[source, terminal]
-----
-go get github.com/scrpgil/ltc
-----
+現状、ffmpegがインストールされていてmp4 → HLS形式の変換ができるPCでないと動きません。 +
 
 = コマンド一覧
 
 [source, terminal]
 ----
-help    
-new     Create a new converter Project folder.
-run     Run the application by the setting file.
-version Prints the current ltc version.
+  help        Help about any command
+  new         Create a new converter Project folder.
+  run         Start transcoding.
+  version     Prints the current ltc version.
 ----
 
 

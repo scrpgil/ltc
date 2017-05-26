@@ -1,0 +1,14 @@
+### Mac OS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Binary
+ltc
+
+# Directory
+example
+ 
+# Thumbnails
+._*

@@ -1,0 +1,34 @@
+{
+    "Input":{
+        "Directory":"input",
+        "FileName":"*",
+        "Format":"mp4"
+    },
+    "Outputs":[
+        {
+            "Key":"high",
+            "Directory":"output",
+            "PresetFile":"hls_high"
+        },
+        {
+            "Key":"medium",
+            "Directory":"output",
+            "PresetFile":"hls_medium"
+        },
+        {
+            "Key":"low",
+            "Directory":"output",
+            "PresetFile":"hls_low"
+        }
+    ],
+    "Playlists":{
+        "Name":"index",
+        "Format":"HLSv3",
+        "Directory":"output",
+        "OutputKeys":[
+            "high",
+            "medium",
+            "low"
+        ]
+    }
+}

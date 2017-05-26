@@ -22,6 +22,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -87,6 +88,7 @@ var runCmd = &cobra.Command{
 }
 
 func Outputs(src string, filename string, path string, outputs []interface{}) {
+	wg := &sync.WaitGroup{}
 	for _, out := range outputs {
 		key := out.(map[string]interface{})["Key"].(string)
 		fmt.Println("start ", key)
@@ -95,11 +97,13 @@ func Outputs(src string, filename string, path string, outputs []interface{}) {
 			fmt.Println(err)
 		}
 		preset := out.(map[string]interface{})["PresetFile"].(string)
-		runCommand(preset, src, outputDir+"/"+filename, key, path)
+		wg.Add(1)
+		go runCommand(preset, src, outputDir+"/"+filename, key, path, wg)
 	}
+	wg.Wait()
 }
 
-func runCommand(preset string, src string, output string, key string, path string) {
+func runCommand(preset string, src string, output string, key string, path string, wg *sync.WaitGroup) {
 	fmt.Println(output)
 	config := viper.New()
 	config.SetConfigName(preset)
@@ -161,6 +165,7 @@ func runCommand(preset string, src string, output string, key string, path strin
 	}
 
 	ffmpeg.Wait()
+	wg.Done()
 	return
 }
 

@@ -17,7 +17,7 @@ mp4 → HLS形式の動画変換をするコマンドラインツールです。
 == 使い方
 
 1．「ltc new example」でフォルダを作成する +
-2．exampleフォルダができ、その中にinput、output、job、presetフォルダができる。
+2．exampleフォルダができ、その中にinput、output、job、presetフォルダができる。 +
 3．inputフォルダに変換したい動画をいれる +
 4．exampleフォルダに移動し「ltc run」コマンドを入力する +
 5．outputフォルダに変換した動画ができる +

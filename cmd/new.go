@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/scrpgil/ltc/lib"
 	"os"
 	"path/filepath"
 
@@ -78,7 +79,7 @@ func createFile(path string, name string) {
 		// Openエラー処理
 	}
 	defer file.Close()
-	data, _ := Asset("default/" + name)
+	data, _ := lib.Asset("default/" + name)
 	file.Write(([]byte)(data))
 }
 

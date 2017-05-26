@@ -37,21 +37,19 @@ var runCmd = &cobra.Command{
 		if jobname == "" {
 			jobname = "default"
 		}
-		x := viper.New()
-		x.SetConfigName(jobname)
-		x.SetConfigType("json")
-		x.AddConfigPath("job")
-		if err := x.ReadInConfig(); err != nil {
+		job.SetConfigName(jobname)
+		job.SetConfigType("json")
+		job.AddConfigPath("job")
+		if err := job.ReadInConfig(); err != nil {
 			panic(fmt.Errorf("read jobfile error: %s \n", err))
 		}
-		inputDir := x.GetString("Input.Directory")
-		filename := x.GetString("Input.FileName")
-		format := x.GetString("Input.Format")
+		inputDir := job.GetString("Input.Directory")
+		filename := job.GetString("Input.FileName")
+		format := job.GetString("Input.Format")
 
-		pName := x.GetString("Playlists.Name")
-		pDir := x.GetString("Playlists.Directory")
+		pName := job.GetString("Playlists.Name")
+		pDir := job.GetString("Playlists.Directory")
 
-		outputs := x.Get("Outputs").([]interface{})
 		if filename == "*" {
 			list, err := ioutil.ReadDir(inputDir)
 			if err != nil {
@@ -71,7 +69,7 @@ var runCmd = &cobra.Command{
 				fileName := finfo.Name()[:pos]
 				path := pDir + "/" + fileName + "/" + pName + ".m3u8"
 				createPlayList(pDir+"/"+fileName, path)
-				Outputs(src, fileName, path, outputs)
+				Outputs(src, fileName, path, job.Get("Outputs").([]interface{}))
 			}
 		} else {
 			path := pDir + "/" + filename + "/" + pName + ".m3u8"
@@ -81,7 +79,7 @@ var runCmd = &cobra.Command{
 			if err != nil {
 				fmt.Println(absPath, err)
 			}
-			Outputs(src, filename, path, outputs)
+			Outputs(src, filename, path, job.Get("Outputs").([]interface{}))
 		}
 		return
 	},
@@ -201,6 +199,7 @@ func addPlayList(path string, bandwidth string, filename string) {
 
 var ffmpegPath string
 var jobname string
+var job *viper.Viper
 
 func init() {
 	RootCmd.AddCommand(runCmd)
@@ -210,4 +209,5 @@ func init() {
 		fmt.Println(err)
 	}
 	ffmpegPath = path
+	job = viper.New()
 }

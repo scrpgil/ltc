@@ -6,7 +6,7 @@
 // default/hls_medium.json
 // DO NOT EDIT!
 
-package cmd
+package lib
 
 import (
 	"bytes"

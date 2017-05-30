@@ -126,6 +126,14 @@ func runCommand(preset string, src string, output string, key string, path strin
 		flags = append(flags, "-s")
 		flags = append(flags, str)
 	}
+	if str := config.GetString("Scale"); str != "" {
+		flags = append(flags, "-vf")
+		flags = append(flags, "scale="+str)
+	}
+	if str := config.GetString("Aspect"); str != "" {
+		flags = append(flags, "-aspect")
+		flags = append(flags, str)
+	}
 	if str := config.GetString("StartNumber"); str != "" {
 		flags = append(flags, "-start_number")
 		flags = append(flags, str)
